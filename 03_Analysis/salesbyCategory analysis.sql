@@ -1,0 +1,19 @@
+
+-- Purpose:
+-- Analyzes revenue, profit, quantity and profit margin
+-- for each product category.
+
+SELECT
+    p.CATEGORY,
+    ROUND(SUM(oi.SALES), 2) AS TOTAL_SALES,
+    ROUND(SUM(oi.PROFIT), 2) AS TOTAL_PROFIT,
+    SUM(oi.QUANTITY) AS TOTAL_QUANTITY,
+    ROUND(
+        (SUM(oi.PROFIT) / NULLIF(SUM(oi.SALES), 0)) * 100,
+        2
+    ) AS PROFIT_MARGIN_PERCENT
+FROM PRODUCTS p
+JOIN ORDER_ITEMS oi
+    ON p.PRODUCT_ID = oi.PRODUCT_ID
+GROUP BY p.CATEGORY
+ORDER BY TOTAL_SALES DESC;--HIGHEST TO LOWEST SALES SHOW CATEGORY 

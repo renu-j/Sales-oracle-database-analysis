@@ -1,0 +1,145 @@
+<div class="dashboard">
+
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div>
+      <h1>Retail Sales Intelligence</h1>
+      <p>Sales & Profit Analytics Dashboard</p>
+    </div>
+
+    <div class="header-badge">
+      Superstore Analytics
+    </div>
+  </header>
+
+
+  <!-- KPI Cards -->
+  <section class="kpi-grid">
+
+    <div class="kpi-card">
+      <span>Total Sales</span>
+      <h2>${{ totalSales | number:'1.2-2' }}</h2>
+      <small>Overall revenue</small>
+    </div>
+
+    <div class="kpi-card">
+      <span>Total Profit</span>
+      <h2>${{ totalProfit | number:'1.2-2' }}</h2>
+      <small>Overall profit</small>
+    </div>
+
+    <div class="kpi-card">
+      <span>Total Orders</span>
+      <h2>{{ totalOrders | number }}</h2>
+      <small>Unique orders</small>
+    </div>
+
+    <div class="kpi-card">
+      <span>Total Customers</span>
+      <h2>{{ totalCustomers | number }}</h2>
+      <small>Unique customers</small>
+    </div>
+
+    <div class="kpi-card">
+      <span>Profit Margin</span>
+      <h2>{{ profitMargin }}%</h2>
+      <small>Profit / Sales</small>
+    </div>
+
+  </section>
+
+
+  <!-- Category Analysis -->
+  <section class="dashboard-card">
+
+    <div class="card-header">
+      <h3>Sales & Profit by Category</h3>
+      <p>Comparison of revenue and profitability across product categories</p>
+    </div>
+
+    <div class="category-row" *ngFor="let category of categories">
+
+      <div>
+        <strong>{{ category.name }}</strong>
+
+        <span>
+          Sales: ${{ category.sales | number:'1.0-0' }}
+        </span>
+
+        <span>
+          Profit: ${{ category.profit | number:'1.0-0' }}
+        </span>
+      </div>
+
+      <strong>
+        {{ ((category.profit / category.sales) * 100).toFixed(2) }}%
+      </strong>
+
+    </div>
+
+  </section>
+
+
+  <!-- Region Analysis -->
+  <section class="dashboard-card">
+
+    <div class="card-header">
+      <h3>Sales by Region</h3>
+      <p>Regional sales distribution</p>
+    </div>
+
+    <div class="region-row" *ngFor="let region of regions">
+
+      <strong>{{ region.name }}</strong>
+
+      <div>
+        <div class="progress">
+          <div
+            class="progress-fill"
+            [style.width.%]="(region.sales / regions[0].sales) * 100">
+          </div>
+        </div>
+
+        <small>
+          ${{ region.sales | number:'1.0-0' }}
+        </small>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Project Insight -->
+  <section class="dashboard-card">
+
+    <div class="card-header">
+      <h3>Business Insight</h3>
+      <p>Key finding from the retail sales analysis</p>
+    </div>
+
+    <div class="category-row">
+      <div>
+        <strong>Technology</strong>
+        <span>Highest sales and strongest total profit among the three categories.</span>
+      </div>
+
+      <strong>
+        ${{ categories[0].profit | number:'1.0-0' }}
+      </strong>
+    </div>
+
+    <div class="category-row">
+      <div>
+        <strong>Furniture</strong>
+        <span>High sales volume but comparatively low profitability.</span>
+      </div>
+
+      <strong>
+        ${{ categories[1].profit | number:'1.0-0' }}
+      </strong>
+    </div>
+
+  </section>
+
+</div>
